@@ -1,19 +1,32 @@
 import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 
-const useInput = (initialValue: string) => {
+export const useInput = (
+  initialValue: string,
+  validator?: (value: string) => boolean | any
+) => {
   const [value, setValue] = useState(initialValue);
   const onChange = (
     event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
   ) => {
-    setValue(event.target.value);
+    let willUpdate = true;
+    if (typeof validator === "function") {
+      willUpdate = validator(value);
+    }
+    if (willUpdate) {
+      setValue(event.target.value);
+    }
   };
   return { value, onChange };
 };
 
 export default function PracInput() {
+  const maxLen = (value: string) => {
+    return value.length < 6;
+  };
+
   // const { value, onChange } = useInput("btae");
-  const name = useInput("btae");
+  const name = useInput("btae", maxLen);
 
   // 사용가능한 여러 방식
   return (
