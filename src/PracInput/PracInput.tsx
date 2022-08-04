@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const useInput = (
   initialValue: string,
-  validator?: (value: string) => boolean | any
+  validator?: ((value: string) => boolean) | any
 ) => {
   const [value, setValue] = useState(initialValue);
   const onChange = (
