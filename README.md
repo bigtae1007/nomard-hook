@@ -1,4 +1,4 @@
-### useClick 훅 만들기 with. typescript
+### useConfirm  훅 만들기 with. typescript
 
 #### 노마드 코더를 보며 typescript 버전으로 정리한 내용 
 **tpyescript 이해도가 부족해 완벽한 내용은 아닐 수 있습니다**
@@ -7,22 +7,19 @@
 
 훅
 ```ts
-export const useClick = (onClick?: () => void) => {
-  const element = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (typeof onClick !== "function") {
-      return;
+export const useConfirm = (
+  message: string,
+  res: () => void,
+  rej: () => void
+) => {
+  const confirm = () => {
+    if (window.confirm(message)) {
+      res();
+    } else {
+      rej();
     }
-    if (element.current) {
-      element.current.addEventListener("click", onClick);
-    }
-    return () => {
-      if (element.current) {
-        element.current.removeEventListener("click", onClick);
-      }
-    };
-  }, []);
-  return element;
+  };
+  return confirm;
 };
 ```
 
@@ -30,27 +27,27 @@ export const useClick = (onClick?: () => void) => {
 사용
 
 ```ts
-export default function PracClick() {
-  const onClick = () => {
-    console.log("hello world");
-  };
-  const title = useClick(onClick);
-
-  return <div ref={title}>sdasd</div>;
+export default function PracConfirm() {
+  const success = () => console.log("확인");
+  const error = () => console.log("실패");
+  const pracConfirm = useConfirm("테스트입니다", success, error);
+  return <button onClick={pracConfirm}>눌러보세요</button>;
 }
 ```
-useEffect를 이용하여 onClick 이벤트를 등록하고 해제하는 훅
+window.confirm 을 이용해서 확인 / 취소 선택 시 해당 명령 수행 
 
-**작성한 tab 훅에서는 1가지 인자를 받는다.**
-1. onClick 시 실행 할 함수를 받는다.
+**작성한 confirm 훅에서는 3가지 인자를 받는다.**
+1. confirm에 입력할 message
+2. 확인 시 함수
+3. 취소 시 함수 
 
+위 예제는 3개를 작성했지만, 취소 함수는 작성하지 않아도 될 것 같다. 
 
 
 <br/>
 
-강의에 있으니 정리하면서 연습을 했지만.... 이걸 훅으로 만들까 ?
-결국 컴포넌트에 작성해야하는 건 onClick시 발생 할 함수인데..... 그냥 요소에다 바로 onClick 이벤트를 다는게 더 편리하지 않을 까? 생각이 든다.... 
-유지 보수가 편해질려나 ....
+이 부분은 만들어 놓으면 편하게 사용할 수는 있을 것 같다. 이번 프로젝트에서는 confirm을 대신해 sweetalert 2 라이브러리를 이용했는데, 
+기본 동작하는 흐름은 비슷하니 자주 사용한다면 사용 편이성을 높일 수 있을 것 같다.
 
 <br/>
 
@@ -58,9 +55,9 @@ useEffect를 이용하여 onClick 이벤트를 등록하고 해제하는 훅
 
 <br/>
 
-useRef에 type을 안에 들어가는 값 \<number\> ... 으로 선언이 가능하고 
-요소에 접근을 한다면 \<HTMLDivElement\>로 선언할 수 있다. 
+이번에는 typescript라서 특별한 건 없는 것 같다. 
+다만 typescript를 연습하면서 생각을 더 깊게 해야한다는 생각이 드는 것 같다. 
 
-아직 자세하게 들여다보지는 못했지만, Ref에 선언 방식은 사용 용도에 따라서 달라지는 것 같다. 
-다음 프로젝트를 type으로 사용하면서 사용하게 된다면 정리를 해보자 
-
+인자를 받아도 안받아도 그만인 것은 ?:를 통해 타입을 지정하게 되고 이럴 경우 조건문에 한번 확인을 거치는 작업이 필요하다. 
+편하게 다 ?:로 받고 조건문을 돌리면 그만이겠지만, 그럴꺼면 type을 안쓰겠지 ?..... 
+훅을 만들 때에는 여러 상황을 고려하고 유지 보수가 편한 방법을 선택하는 것도 좋을 것 같다. 
