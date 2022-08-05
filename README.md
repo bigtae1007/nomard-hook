@@ -7,19 +7,18 @@
 
 훅
 ```ts
-export const useConfirm = (
-  message: string,
-  res: () => void,
-  rej: () => void
-) => {
-  const confirm = () => {
-    if (window.confirm(message)) {
-      res();
-    } else {
-      rej();
-    }
+export const usePreventLeave = () => {
+  const lisner = (e: any) => {
+    e.preventDefault();
+    e.returnValue = "";
   };
-  return confirm;
+  const enablePrevent = () => {
+    window.addEventListener("beforeunload", lisner);
+  };
+  const disablePrevent = () => {
+    window.removeEventListener("beforeunload", lisner);
+  };
+  return { enablePrevent, disablePrevent };
 };
 ```
 
@@ -27,27 +26,23 @@ export const useConfirm = (
 사용
 
 ```ts
-export default function PracConfirm() {
-  const success = () => console.log("확인");
-  const error = () => console.log("실패");
-  const pracConfirm = useConfirm("테스트입니다", success, error);
-  return <button onClick={pracConfirm}>눌러보세요</button>;
+export default function PracPreventLeave() {
+  const { enablePrevent, disablePrevent } = usePreventLeave();
+  return (
+    <div>
+      <button onClick={enablePrevent}>적용</button>
+      <button onClick={disablePrevent}>미적용</button>
+    </div>
+  );
 }
+
 ```
-window.confirm 을 이용해서 확인 / 취소 선택 시 해당 명령 수행 
-
-**작성한 confirm 훅에서는 3가지 인자를 받는다.**
-1. confirm에 입력할 message
-2. 확인 시 함수
-3. 취소 시 함수 
-
-위 예제는 3개를 작성했지만, 취소 함수는 작성하지 않아도 될 것 같다. 
-
+beforeunload 이벤트를 통해 새로고침 및 페이지 이탈 방지 훅 작성
 
 <br/>
 
-이 부분은 만들어 놓으면 편하게 사용할 수는 있을 것 같다. 이번 프로젝트에서는 confirm을 대신해 sweetalert 2 라이브러리를 이용했는데, 
-기본 동작하는 흐름은 비슷하니 자주 사용한다면 사용 편이성을 높일 수 있을 것 같다.
+흔히 노션을 보면 적용되어 있는 기능이다. 작성 중 새로고침 시 내용이 날아가기 때문에 실수로 눌렀을 상황을 대비하여, 동작해 놓으면 좋다. 
+물론 이것도 라이브러리가 있지만, 이것까지 이쁘게 꾸며야 하나? 굳이 라이브러리가 아니더라도 브라우저를 멈추고 동작하게 할 수 있으니 유용하게 사용 할 수 있을 것 같다. 
 
 <br/>
 
@@ -55,9 +50,5 @@ window.confirm 을 이용해서 확인 / 취소 선택 시 해당 명령 수행
 
 <br/>
 
-이번에는 typescript라서 특별한 건 없는 것 같다. 
-다만 typescript를 연습하면서 생각을 더 깊게 해야한다는 생각이 드는 것 같다. 
-
-인자를 받아도 안받아도 그만인 것은 ?:를 통해 타입을 지정하게 되고 이럴 경우 조건문에 한번 확인을 거치는 작업이 필요하다. 
-편하게 다 ?:로 받고 조건문을 돌리면 그만이겠지만, 그럴꺼면 type을 안쓰겠지 ?..... 
-훅을 만들 때에는 여러 상황을 고려하고 유지 보수가 편한 방법을 선택하는 것도 좋을 것 같다. 
+매개변수 e type을 any로 작성했다. 보통 input이나 div 등 태그에 직접 달 경우 <HTMLInputElement>를 사용했는데, 이 방식에 경우 어떻게 작성해야할 지 모르겠다. 
+더 찾아보고 수정해보자 
