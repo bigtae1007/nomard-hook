@@ -5,6 +5,7 @@ import PracInput from "./PracHook/PracInput";
 import PracTabls from "./PracHook/PracTabls";
 import PracTitle from "./PracHook/PracTitle";
 import PracConfirm from "./PracHook/PracConfirm";
+import PracPreventLeave from "./PracHook/PracPreventLeave";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <PracTabls />
       <PracTitle />
       <PracConfirm />
+      <PracPreventLeave />
     </div>
   );
 }
