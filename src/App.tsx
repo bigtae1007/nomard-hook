@@ -4,6 +4,7 @@ import "./App.css";
 import PracInput from "./PracHook/PracInput";
 import PracTabls from "./PracHook/PracTabls";
 import PracTitle from "./PracHook/PracTitle";
+import PracConfirm from "./PracHook/PracConfirm";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <PracInput />
       <PracTabls />
       <PracTitle />
+      <PracConfirm />
     </div>
   );
 }
