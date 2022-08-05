@@ -1,4 +1,4 @@
-### useConfirm  훅 만들기 with. typescript
+### usePreventLeave  훅 만들기 with. typescript
 
 #### 노마드 코더를 보며 typescript 버전으로 정리한 내용 
 **tpyescript 이해도가 부족해 완벽한 내용은 아닐 수 있습니다**
