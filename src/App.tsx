@@ -9,6 +9,7 @@ import PracPreventLeave from "./PracHook/PracPreventLeave";
 import PracBeforeLeave from "./PracHook/PracBeforeLeave";
 import PracFadeIn from "./PracHook/PracFadeIn";
 import styled from "styled-components";
+import PracNetwork from "./PracHook/PracNetwork";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <PracPreventLeave />
       <PracBeforeLeave />
       <PracFadeIn />
+      <PracNetwork />
     </AppDiv>
   );
 }
