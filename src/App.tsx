@@ -7,18 +7,31 @@ import PracTitle from "./PracHook/PracTitle";
 import PracConfirm from "./PracHook/PracConfirm";
 import PracPreventLeave from "./PracHook/PracPreventLeave";
 import PracBeforeLeave from "./PracHook/PracBeforeLeave";
+import PracFadeIn from "./PracHook/PracFadeIn";
+import styled from "styled-components";
 
 function App() {
   return (
-    <div className="App">
+    <AppDiv className="App">
       <PracInput />
       <PracTabls />
       <PracTitle />
       <PracConfirm />
       <PracPreventLeave />
       <PracBeforeLeave />
-    </div>
+      <PracFadeIn />
+    </AppDiv>
   );
 }
 
 export default App;
+
+const AppDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  > div {
+    width: 500px;
+    height: 500px;
+    border: 1px solid #000;
+  }
+`;
