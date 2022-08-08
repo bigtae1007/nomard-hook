@@ -10,18 +10,20 @@ import PracBeforeLeave from "./PracHook/PracBeforeLeave";
 import PracFadeIn from "./PracHook/PracFadeIn";
 import styled from "styled-components";
 import PracNetwork from "./PracHook/PracNetwork";
+import PracScroll from "./PracHook/PracScroll";
 
 function App() {
   return (
     <AppDiv className="App">
-      <PracInput />
+      {/* <PracInput />
       <PracTabls />
       <PracTitle />
       <PracConfirm />
       <PracPreventLeave />
       <PracBeforeLeave />
       <PracFadeIn />
-      <PracNetwork />
+      <PracNetwork /> */}
+      <PracScroll />
     </AppDiv>
   );
 }
