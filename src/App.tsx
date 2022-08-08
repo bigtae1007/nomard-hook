@@ -11,19 +11,20 @@ import PracFadeIn from "./PracHook/PracFadeIn";
 import styled from "styled-components";
 import PracNetwork from "./PracHook/PracNetwork";
 import PracScroll from "./PracHook/PracScroll";
+import PracFullscreen from "./PracHook/PracFullscreen";
 
 function App() {
   return (
     <AppDiv className="App">
-      {/* <PracInput />
+      <PracInput />
       <PracTabls />
       <PracTitle />
       <PracConfirm />
       <PracPreventLeave />
       <PracBeforeLeave />
       <PracFadeIn />
-      <PracNetwork /> */}
-      <PracScroll />
+      <PracNetwork />
+      <PracFullscreen />
     </AppDiv>
   );
 }
