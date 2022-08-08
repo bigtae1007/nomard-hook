@@ -12,6 +12,7 @@ import styled from "styled-components";
 import PracNetwork from "./PracHook/PracNetwork";
 import PracScroll from "./PracHook/PracScroll";
 import PracFullscreen from "./PracHook/PracFullscreen";
+import PracNotification from "./PracHook/PracNotification";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <PracFadeIn />
       <PracNetwork />
       <PracFullscreen />
+      <PracNotification />
     </AppDiv>
   );
 }
