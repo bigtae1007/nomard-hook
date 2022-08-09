@@ -1,63 +1,26 @@
-### useConfirm  훅 만들기 with. typescript
-
 #### 노마드 코더를 보며 typescript 버전으로 정리한 내용 
 **tpyescript 이해도가 부족해 완벽한 내용은 아닐 수 있습니다**
+<br>
+
+각 hook 관련 README는 각 브런치에 작성해두었다. 
 
 <br>
 
-훅
-```ts
-export const useConfirm = (
-  message: string,
-  res: () => void,
-  rej: () => void
-) => {
-  const confirm = () => {
-    if (window.confirm(message)) {
-      res();
-    } else {
-      rej();
-    }
-  };
-  return confirm;
-};
-```
+#### 목적 
+* useState, useEffect 훅을 이용하여 custom 훅을 만들어보기 
+* typescript 연습 
 
+#### 배움 
+custom hooks에 대한 개념이 잡히는 것 같다. 
+사용은 했었지만, 어떤 상황에서 사용을 해야할 지 개념적으로 설명할 수 없는 상태였지만, 
+한 번 정리를 통해서 기반을 다듬었다는 생각이 든다. 
 
-사용
+<br>
 
-```ts
-export default function PracConfirm() {
-  const success = () => console.log("확인");
-  const error = () => console.log("실패");
-  const pracConfirm = useConfirm("테스트입니다", success, error);
-  return <button onClick={pracConfirm}>눌러보세요</button>;
-}
-```
-window.confirm 을 이용해서 확인 / 취소 선택 시 해당 명령 수행 
+여러 이벤트 등을 알게 됐다. Notification 등 해당 기능이 필요한 플젝을 했을 때 검색해 금방 찾을 수 있었겠지만, 모르던 이벤트를 사용한 hooks을 만드는 과정에서 
+지루함을 느끼지 않아서 좋은 것 같다. 
 
-**작성한 confirm 훅에서는 3가지 인자를 받는다.**
-1. confirm에 입력할 message
-2. 확인 시 함수
-3. 취소 시 함수 
+<br>
 
-위 예제는 3개를 작성했지만, 취소 함수는 작성하지 않아도 될 것 같다. 
-
-
-<br/>
-
-이 부분은 만들어 놓으면 편하게 사용할 수는 있을 것 같다. 이번 프로젝트에서는 confirm을 대신해 sweetalert 2 라이브러리를 이용했는데, 
-기본 동작하는 흐름은 비슷하니 자주 사용한다면 사용 편이성을 높일 수 있을 것 같다.
-
-<br/>
-
-**type**
-
-<br/>
-
-이번에는 typescript라서 특별한 건 없는 것 같다. 
-다만 typescript를 연습하면서 생각을 더 깊게 해야한다는 생각이 드는 것 같다. 
-
-인자를 받아도 안받아도 그만인 것은 ?:를 통해 타입을 지정하게 되고 이럴 경우 조건문에 한번 확인을 거치는 작업이 필요하다. 
-편하게 다 ?:로 받고 조건문을 돌리면 그만이겠지만, 그럴꺼면 type을 안쓰겠지 ?..... 
-훅을 만들 때에는 여러 상황을 고려하고 유지 보수가 편한 방법을 선택하는 것도 좋을 것 같다. 
+typescript에 어려움. 어떤 상황에서든 동작할 수 있는 커스텀 hook을 만들기 위해서 type을 지정하는 부분이 어려웠던 것 같다. 
+예시에서는 내가 div나 h1 등 특정 태그에만 작성을 했으니 크게 어렵지는 않았지만, 전역 컴포넌트에서 사용한다면 구조를 잘 짜야할 것 같다.
